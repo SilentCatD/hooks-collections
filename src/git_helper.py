@@ -46,7 +46,7 @@ def get_git_diff(staged: bool = True):
 
 def get_not_resolved_files(staged: bool = True):
     """get files that still have unresolved conflicts"""
-    args = ["git", "diff", "--check"]
+    args = ["git", "diff", "--check", "-w"]
     if staged:
         args.append("--staged")
     try:
