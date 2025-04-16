@@ -39,6 +39,9 @@ def pre_commit():
     # check vulns
     git_helper.evaluate_hook_result(no_vulns())
 
+    # check license
+    git_helper.evaluate_hook_result(flutter_hook.license_check())
+
     # restore working area
     git_helper.pop_stash()
 
