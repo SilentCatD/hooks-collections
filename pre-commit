@@ -5,6 +5,7 @@ Script to be run before `git commit`
 from src.git_helper import GitHelper, all_conflict_resolved
 from src.flutter_hook import FlutterHook
 from src.gitleaks_hook import no_leaks
+from src.osv_scanner import no_vulns
 
 
 def pre_commit():
@@ -34,6 +35,9 @@ def pre_commit():
 
     # check leaks
     git_helper.evaluate_hook_result(no_leaks(git_helper.staged_files))
+
+    # check vulns
+    git_helper.evaluate_hook_result(no_vulns())
 
     # restore working area
     git_helper.pop_stash()

@@ -4,6 +4,7 @@ Script to be run before `git push` to remote repository
 """
 from src.git_helper import check_need_push
 from src.gitleaks_hook import no_leaks
+from src.osv_scanner import no_vulns
 
 
 def pre_push():
@@ -15,6 +16,11 @@ def pre_push():
     # check leaks
     safe_from_leaks = no_leaks()
     if not safe_from_leaks:
+        exit(1)
+
+    # check vulns
+    safe_from_vulns = no_vulns()
+    if not safe_from_vulns:
         exit(1)
 
 
