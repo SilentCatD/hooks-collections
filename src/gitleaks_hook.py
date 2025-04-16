@@ -49,7 +49,7 @@ def install_gitleaks():
 
     with tarfile.open(os.path.join(temp_dir_path, tar_file_name), 'r') as f:
         info("extracting....")
-        f.extractall(path=temp_dir_path, filter='fully_trusted')
+        f.extractall(path=temp_dir_path)
 
     os.chmod(os.path.join(temp_dir_path, gitleaks_file_name), 0o755)
 
