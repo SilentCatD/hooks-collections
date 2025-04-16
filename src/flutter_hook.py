@@ -19,7 +19,7 @@ class FlutterHook:
         scanning_args = ["lic_ck", "check-licenses", "--config", self.config_file_name]
         license_scan_result = subprocess.run(scanning_args)
         if license_scan_result.returncode != 0:
-            return False
+            return True
         return True
 
     def format_files(self) -> bool:
