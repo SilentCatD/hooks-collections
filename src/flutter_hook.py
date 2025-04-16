@@ -16,9 +16,8 @@ class FlutterHook:
             return True
         installation_args = ["dart", "pub", "global", "activate", "license_checker"]
         subprocess.run(installation_args)
-        scanning_results = ["lic_ck", "check-licenses", "--config"]
-        scanning_results.append(self.config_file_name)
-        license_scan_result = subprocess.run(installation_args)
+        scanning_args = ["lic_ck", "check-licenses", "--config", self.config_file_name]
+        license_scan_result = subprocess.run(scanning_args)
         if license_scan_result.returncode != 0:
             return False
         return True
