@@ -1,0 +1,38 @@
+#!/usr/bin/env .git/hooks/mobile_env/bin/python3
+"""
+Scripts that run after `pre-commit` but before `commit-message`, use for modifying the commit message file
+
+There are one file passed to this script by the system that stored what next commit message
+going to be
+
+Extract the string value by `get_commit_msg()`
+
+Resources:
+    https://git-scm.com/book/ms/v2/Customizing-Git-Git-Hooks
+        section: Committing-Workflow Hooks
+"""
+from src.git_helper import get_commit_msg_file, get_git_diff
+from src.ollama_interactor import generate_commit_message_body
+
+
+def commit_msg():
+    diff = get_git_diff()
+    if not diff:
+        exit(0)
+    commit_message_file = get_commit_msg_file()
+    generated_commit_messaged = generate_commit_message_body(diff)
+    if not generated_commit_messaged:
+        exit(0)
+
+    with open(commit_message_file, 'r') as f:
+        contents = f.readlines()
+    contents.insert(13, generated_commit_messaged)
+
+    with open(commit_message_file, "w") as f:
+        f.writelines(contents)
+    exit(0)
+
+
+if __name__ == '__main__':
+    commit_msg()
+    pass

@@ -1,0 +1,34 @@
+#!/usr/bin/env .git/hooks/mobile_env/bin/python3
+"""
+Scripts that run after `pre-commit`, usually for validating commit message match patterns
+
+There are one file passed to this script by the system that stored what next commit message
+going to be
+
+Extract the string value by `get_commit_msg()`
+
+Resources:
+    https://git-scm.com/book/ms/v2/Customizing-Git-Git-Hooks
+        section: Committing-Workflow Hooks
+"""
+from src.commit_message_lint import CommitMessageLint
+from src.git_helper import get_commit_msg, get_commit_msg_file
+
+def commit_msg():
+    commit_message_file = get_commit_msg_file()
+    commit_message = get_commit_msg(commit_message_file)
+    msg_lint = CommitMessageLint(commit_message, commit_message_file)
+    msg_lint.separate_subject_body_with_blank_lines()
+    msg_lint.max_char_count_subject_line()
+    msg_lint.capitalize_first_subject_char()
+    msg_lint.all_type_symbol_lowercase()
+    msg_lint.subject_trailing_dot()
+    msg_lint.body_wrapped()
+    msg_lint.should_use_type()
+    msg_lint.write_commit_msg()
+    exit(0)
+
+
+if __name__ == '__main__':
+    commit_msg()
+    pass

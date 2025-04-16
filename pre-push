@@ -1,0 +1,22 @@
+#!/usr/bin/env .git/hooks/mobile_env/bin/python3
+"""
+Script to be run before `git push` to remote repository
+"""
+from src.git_helper import check_need_push
+from src.gitleaks_hook import no_leaks
+
+
+def pre_push():
+    """execute checks when there are commits to push"""
+    # exit if no new commits
+    if not check_need_push():
+        exit(0)
+
+    # check leaks
+    safe_from_leaks = no_leaks()
+    if not safe_from_leaks:
+        exit(1)
+
+
+if __name__ == '__main__':
+    pre_push()

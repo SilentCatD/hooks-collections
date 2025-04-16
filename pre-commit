@@ -1,0 +1,46 @@
+#!/usr/bin/env .git/hooks/mobile_env/bin/python3
+"""
+Script to be run before `git commit`
+"""
+from src.git_helper import GitHelper, all_conflict_resolved
+from src.flutter_hook import FlutterHook
+from src.gitleaks_hook import no_leaks
+
+
+def pre_commit():
+    """run checks before commit, skip if no staged changes"""
+    git_helper = GitHelper()
+
+    # exit if no staged changes
+    if not git_helper.staged_files:
+        exit(0)
+
+    flutter_hook = FlutterHook(git_helper.staged_files)
+
+    # stash working area
+    git_helper.stash()
+
+    # check for conflict marks HEAD <<<<<<
+    git_helper.evaluate_hook_result(all_conflict_resolved())
+
+    # format dart files
+    git_helper.evaluate_hook_result(flutter_hook.format_files())
+
+    # apply lint fixes
+    git_helper.evaluate_hook_result(flutter_hook.fix_files())
+
+    # lint files
+    git_helper.evaluate_hook_result(flutter_hook.lint_files())
+
+    # check leaks
+    git_helper.evaluate_hook_result(no_leaks(git_helper.staged_files))
+
+    # restore working area
+    git_helper.pop_stash()
+
+    # status info
+    git_helper.status()
+
+
+if __name__ == '__main__':
+    pre_commit()

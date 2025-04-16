@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+"""
+Script to be run before `remote_hooks uninstall`, this is useful for clean up created resources
+during the install and execution of hooks
+"""
+
+from src.git_helper import unset_commit_template
+from src.gitleaks_hook import clean_up_gitleaks
+from src.printer import *
+from src.venv_manager import VenvManager
+
+
+def pre_uninstall():
+    """execute clean up"""
+    venv_manager = VenvManager()
+    venv_manager.clean_up()
+    clean_up_gitleaks()
+    unset_commit_template()
+
+
+if __name__ == '__main__':
+    pre_uninstall()
+    ok("Hooks uninstalled")

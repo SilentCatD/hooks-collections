@@ -1,0 +1,1 @@
+commit_template_path = '.git/hooks/commit-template.txt'

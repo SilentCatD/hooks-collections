@@ -1,0 +1,50 @@
+# Title: Summary, start with "type(optional-scope): Uppercase", don't end with a period
+# First character after ": " should be capitalized
+# eg: feat(user): Remove user name
+# eg: fix: Infinite loading
+# No more than 50 chars. #### 50 chars is here:  #
+
+# Remember blank line between title and body
+# **DO NOT DELETE** the empty line bellow
+
+# Body: Explain *what* and *why* (not *how*)
+# Include task ID (Jira issue) to use Jira smart commit feature
+# eg: Remove username and handle the issue of username keep reloading
+# Wrap at 72 chars. ################################## which is here:  #
+
+# At the end: Include Co-authored-by for all contributors. (Optional)
+# Include at least one empty line before it
+#
+# Co-authored-by: name <user@users.noreply.github.com>
+# Co-authored-by: name2 <user2@users2.noreply.github.com>
+#
+# How to Write a Git Commit Message:
+# https://chris.beams.io/posts/git-commit/
+#
+# 1. Separate subject from body with a blank line
+# 2. Limit the subject line to 50 characters
+# 3. Capitalize the first character of subject - after "type(scope): "
+# 4. All type(scope) symbol is lowercase
+# 5. Do not end the subject line with a period
+# 6. Use the imperative mood in the subject line
+# 7. Wrap the body at 72 characters
+# 8. Use the body to explain what and why vs. how
+# 9. Commit title should have a conventional type - "type(scope): Subject"
+#
+# Conventional commit type definition:
+# https://www.conventionalcommits.org/en/v1.0.0
+#
+# feat – a new feature is introduced with the changes
+# fix – a bug fix has occurred
+# chore – changes that do not relate to a fix or feature and don't modify
+#         src or test files (for example updating dependencies)
+# refactor – refactored code that neither fixes a bug nor adds a feature
+# docs – updates to documentation such as a the README or other markdown files
+# style – changes that do not affect the meaning of the code, likely
+#         related to code formatting such as white-space, missing semi-colons,
+#         and so on.
+# test – including new or correcting previous tests
+# perf – performance improvements
+# ci – continuous integration related
+# build – changes that affect the build system or external dependencies
+# revert – reverts a previous commit

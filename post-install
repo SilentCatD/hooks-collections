@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+"""
+Script to be run after `remote_hooks install`, this is useful for installing additional library
+for hooks execution, consider to remove installed resources with `pre-uninstall`
+
+This script will be run with the system python3
+"""
+
+from src.const import commit_template_path
+from src.git_helper import set_commit_template
+from src.printer import *
+from src.venv_manager import VenvManager
+
+
+def post_install():
+    """install deps after remote_hooks install"""
+    venv_manager = VenvManager()
+    venv_manager.install_package()
+    set_commit_template(commit_template_path)
+    ok("Hooks installed")
+
+
+if __name__ == '__main__':
+    post_install()
